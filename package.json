@@ -1,12 +1,17 @@
 {
-  "name": "r3f-introduction",
+  "name": "r3f-introduction-for-iwakenlab-techbook03",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "inspect": "npm-run-all -l -c inspect:*",
+    "inspect:lint": "next lint --dir src",
+    "inspect:format": "prettier --check src",
+    "fix": "npm-run-all -l -c fix:*",
+    "fix:lint": "next lint --dir src --fix",
+    "fix:format": "npm run inspect:format --write"
   },
   "dependencies": {
     "@react-three/drei": "^9.88.11",
@@ -24,7 +29,9 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8",
+    "prettier": "^3.0.3",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
