@@ -21,15 +21,35 @@ type GLTFResult = GLTF & {
   }
 }
 
-type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
+type ContextType = Record<
+  string,
+  React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>
+>
 
 export function Model(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/apple.glb') as GLTFResult
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.球.geometry} material={materials.マテリアル} position={[0, 0.199, 0]} scale={0.229} />
-      <mesh geometry={nodes.ベジエカーブ.geometry} material={materials['マテリアル.001']} position={[0, 0.398, 0]} rotation={[Math.PI / 2, 0.931, 0]} scale={0.074} />
-      <mesh geometry={nodes.球001.geometry} material={materials['マテリアル.002']} position={[0, 0.449, 0]} rotation={[2.291, -0.404, -1.239]} scale={-0.044} />
+      <mesh
+        geometry={nodes.球.geometry}
+        material={materials.マテリアル}
+        position={[0, 0.199, 0]}
+        scale={0.229}
+      />
+      <mesh
+        geometry={nodes.ベジエカーブ.geometry}
+        material={materials['マテリアル.001']}
+        position={[0, 0.398, 0]}
+        rotation={[Math.PI / 2, 0.931, 0]}
+        scale={0.074}
+      />
+      <mesh
+        geometry={nodes.球001.geometry}
+        material={materials['マテリアル.002']}
+        position={[0, 0.449, 0]}
+        rotation={[2.291, -0.404, -1.239]}
+        scale={-0.044}
+      />
     </group>
   )
 }

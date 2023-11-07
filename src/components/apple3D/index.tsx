@@ -1,12 +1,7 @@
 'use client'
 
 import { Canvas, useFrame } from '@react-three/fiber'
-import {
-  Environment,
-  Center,
-  Lightformer,
-  Shadow,
-} from '@react-three/drei'
+import { Environment, Center, Lightformer, Shadow } from '@react-three/drei'
 import { ReactNode, useRef, useState } from 'react'
 import { Model } from './Apple'
 
