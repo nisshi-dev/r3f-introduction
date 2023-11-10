@@ -1,12 +1,7 @@
 'use client'
 
 import { Canvas, useFrame } from '@react-three/fiber'
-import {
-  Environment,
-  Center,
-  Lightformer,
-  Shadow,
-} from '@react-three/drei'
+import { Environment, Center, Lightformer, Shadow } from '@react-three/drei'
 import { ReactNode, useRef, useState } from 'react'
 import { Model } from './Apple'
 
@@ -16,6 +11,7 @@ type Props = {
 }
 
 export const Apple3D = ({ position = [0, 1, 2.5], fov = 7 }: Props) => {
+  // 低パフォーマンス下で環境マップのレンダリング回数を1回に制御する
   const [perfSucks, degrade] = useState(true)
 
   return (
@@ -42,21 +38,6 @@ export const Apple3D = ({ position = [0, 1, 2.5], fov = 7 }: Props) => {
   )
 }
 
-type RigType = {
-  children: ReactNode
-}
-
-function CameraRig({ children }: RigType) {
-  const groupRef = useRef<THREE.Group>(null)
-  useFrame((state, delta) => {
-    if (groupRef.current) {
-      const rotationY = (Math.sin(state.clock.elapsedTime * 0.8) * Math.PI) / 2
-      groupRef.current.rotation.y = rotationY
-    }
-  })
-  return <group ref={groupRef}>{children}</group>
-}
-
 type EnvProps = {
   perfSucks: boolean
 }
@@ -73,11 +54,27 @@ function Env({ perfSucks }: EnvProps) {
       <Lightformer
         intensity={9}
         form="ring"
-        color="#FF624F"
+        color="#FF624F" // ライトの色
         rotation-y={Math.PI / 2}
         position={[-5, 2, -1]}
         scale={[10, 10, 1]}
       />
     </Environment>
   )
+}
+
+type RigType = {
+  children: ReactNode
+}
+
+function CameraRig({ children }: RigType) {
+  const groupRef = useRef<THREE.Group>(null)
+  useFrame((state, delta) => {
+    if (groupRef.current) {
+      // 経過時間に応じてカメラを回転させる
+      const rotationY = (Math.sin(state.clock.elapsedTime * 0.8) * Math.PI) / 2
+      groupRef.current.rotation.y = rotationY
+    }
+  })
+  return <group ref={groupRef}>{children}</group>
 }
